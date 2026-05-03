@@ -1,5 +1,6 @@
 import API from './api.js';
 
+// Upload Resume
 const uploadResume = async (file) => {
   const formData = new FormData();
   formData.append('resume', file);
@@ -10,21 +11,29 @@ const uploadResume = async (file) => {
   return response.data.data;
 };
 
+// Get Resume
 const getResume = async () => {
   const response = await API.get('/resume');
   return response.data.data;
 };
 
+// Start Interview
 const startInterview = async (role, resumeText, totalQuestions) => {
-  const response = await API.post('/interview/start', { role, resumeText, totalQuestions });
+  const response = await API.post('/interview/start', {
+    role,
+    resumeText,
+    totalQuestions
+  });
   return response.data.data;
 };
 
+// Submit Text Answer
 const submitTextAnswer = async (interviewId, answer) => {
   const response = await API.post(`/interview/${interviewId}/answer`, { answer });
   return response.data.data;
 };
 
+// Transcribe Audio
 const transcribeAudio = async (audioBlob) => {
   const formData = new FormData();
   formData.append('audio', audioBlob, 'answer.webm');
@@ -35,16 +44,22 @@ const transcribeAudio = async (audioBlob) => {
   return response.data.data;
 };
 
+// Submit Code
 const submitCode = async (interviewId, code, language) => {
-  const response = await API.post(`/interview/${interviewId}/code`, { code, language });
+  const response = await API.post(`/interview/${interviewId}/code`, {
+    code,
+    language
+  });
   return response.data.data;
 };
 
+// End Interview
 const endInterview = async (interviewId) => {
   const response = await API.post(`/interview/${interviewId}/end`);
   return response.data.data;
 };
 
+// Get Interview
 const getInterview = async (interviewId) => {
   const response = await API.get(`/interview/${interviewId}`);
   return response.data.data;
