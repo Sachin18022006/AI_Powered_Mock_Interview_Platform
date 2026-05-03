@@ -12,7 +12,7 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173', // local dev
-  'https://ai-powered-mock-interview-platform-oxi1-2763pkgiy.vercel.app' // your Vercel URL
+  'https://ai-powered-mock-interview-platform-rosy.vercel.app' // your Vercel URL
 ];
 
 app.use(cors({
