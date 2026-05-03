@@ -1,26 +1,27 @@
 # 🚀 AI-Powered Mock Interview Platform
 
-An end-to-end full-stack web application that simulates real-world technical interviews using AI. It generates personalized questions from user resumes, supports text and voice responses, and provides intelligent feedback on performance. The platform also tracks interview history, helping users improve through continuous practice.
+A full-stack web application that simulates real-world technical interviews using AI.
+It generates personalized questions from user resumes, supports text and voice responses, and provides intelligent feedback to help users improve their performance.
 
 ---
 
 ## 🌐 Live Demo
 
 * 🔗 Frontend: https://ai-powered-mock-interview-platform-snowy.vercel.app
-* 🔗 Backend API: https://ai-powered-mock-interview-platform-6uf5.onrender.com
+* 🔗 Backend: https://ai-powered-mock-interview-platform-6uf5.onrender.com
 
 ---
 
 ## ✨ Features
 
-* 🔐 User Authentication (JWT-based login & register)
-* 📄 Resume Upload & Parsing
-* 🧠 AI-generated Interview Questions (based on role & resume)
-* 🎤 Speech-to-Text Answering (AssemblyAI)
-* 💻 Code Answer Support
-* 📊 AI Feedback & Performance Evaluation
-* 📚 Interview History Tracking
-* ⚡ Real-time interactive interview flow
+* 🔐 JWT-based user authentication
+* 📄 Resume upload and parsing (PDF support)
+* 🧠 AI-generated interview questions based on resume and role
+* 🎤 Voice-based answers using speech-to-text
+* 🔊 AI voice responses using text-to-speech
+* 💻 Live coding support with evaluation
+* 📊 AI-powered feedback with performance scoring
+* 📚 Interview history with progress tracking
 
 ---
 
@@ -31,7 +32,6 @@ An end-to-end full-stack web application that simulates real-world technical int
 * React (Vite)
 * Axios
 * React Router
-* Tailwind CSS (or your styling)
 
 ### Backend
 
@@ -42,19 +42,19 @@ An end-to-end full-stack web application that simulates real-world technical int
 
 ### AI & APIs
 
-* Gemini API (Google AI)
-* AssemblyAI (Speech-to-Text)
-* Murf API (Text-to-Speech)
+* Google Gemini API (question generation & feedback)
+* AssemblyAI (speech-to-text)
+* Murf AI (text-to-speech)
 
 ---
 
 ## 📁 Project Structure
 
-```
+```bash
 AI_Powered_Mock_Interview_Platform/
 │
-├── client/        # Frontend (React + Vite)
-├── server/        # Backend (Node.js + Express)
+├── client/   # Frontend
+├── server/   # Backend
 └── README.md
 ```
 
@@ -62,12 +62,13 @@ AI_Powered_Mock_Interview_Platform/
 
 ## ⚙️ Environment Variables
 
-### Backend (`server/.env`)
+### Backend (.env)
 
-```
+```env
 PORT=5000
 NODE_ENV=production
 MONGODB_URI=your_mongodb_uri
+
 JWT_SECRET=your_secret_key
 JWT_EXPIRES_IN=7d
 
@@ -78,28 +79,28 @@ MURF_API_KEY=your_murf_key
 
 ---
 
-### Frontend (Vercel Environment)
+### Frontend (Vercel)
 
-```
-VITE_API_URL=https://your-render-backend-url.onrender.com
+```env
+VITE_API_URL=https://your-backend-url.onrender.com
 ```
 
 ---
 
-## 🚀 Installation & Setup
+## 🚀 Installation
 
-### 1️⃣ Clone the repository
+### 1. Clone the repository
 
-```
+```bash
 git clone https://github.com/Sachin18022006/AI_Powered_Mock_Interview_Platform.git
 cd AI_Powered_Mock_Interview_Platform
 ```
 
 ---
 
-### 2️⃣ Backend Setup
+### 2. Run Backend
 
-```
+```bash
 cd server
 npm install
 node server.js
@@ -107,9 +108,9 @@ node server.js
 
 ---
 
-### 3️⃣ Frontend Setup
+### 3. Run Frontend
 
-```
+```bash
 cd client
 npm install
 npm run dev
@@ -119,39 +120,28 @@ npm run dev
 
 ## 🌍 Deployment
 
-* Frontend deployed on **Vercel**
-* Backend deployed on **Render**
-* Database hosted on **MongoDB Atlas**
+* Frontend → Vercel
+* Backend → Render
+* Database → MongoDB Atlas
 
 ---
 
-## 🧠 Future Enhancements
+## 🧠 Key Highlights
 
-* 📊 Advanced analytics dashboard
-* 🤖 Adaptive AI questioning
-* 🎯 Personalized improvement suggestions
-* 🌐 Multi-language support
-* 📱 Mobile responsiveness improvements
-
----
-
-## 🙌 Acknowledgements
-
-* Google Gemini API
-* AssemblyAI
-* Murf AI
-* Open Source Community
+* Built a complete MERN stack application
+* Implemented AI-driven interview simulation
+* Integrated multiple AI services (Gemini, AssemblyAI, Murf)
+* Designed scalable REST APIs with authentication
 
 ---
 
 ## 👨‍💻 Author
 
 **Sachin B S**
-
-* GitHub: https://github.com/Sachin18022006
+GitHub: https://github.com/Sachin18022006
 
 ---
 
-## ⭐ If you like this project
+## ⭐ Support
 
-Give it a ⭐ on GitHub and share it 🚀
+If you found this project useful, consider giving it a ⭐ on GitHub!
