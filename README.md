@@ -126,12 +126,6 @@ npm run dev
 
 ---
 
-## 📸 Screenshots
-
-*Add your screenshots here (login, interview, results, etc.)*
-
----
-
 ## 🧠 Future Enhancements
 
 * 📊 Advanced analytics dashboard
