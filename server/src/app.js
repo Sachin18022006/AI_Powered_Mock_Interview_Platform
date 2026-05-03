@@ -7,24 +7,25 @@ import { errorHandler, notFoundHandler } from './middleware/error.middleware.js'
 const app = express();
 
 // ============================================
-// CORS FIX (IMPORTANT)
+// CORS (CLEAN + RELIABLE)
 // ============================================
 
-const allowedOrigins = [
-  'http://localhost:5173', // local dev
-  'https://ai-powered-mock-interview-platform-rosy.vercel.app' // your Vercel URL
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like Postman)
+  origin: (origin, callback) => {
+    // Allow requests with no origin (Postman, mobile apps)
     if (!origin) return callback(null, true);
 
-    if (allowedOrigins.includes(origin)) {
+    // Allow localhost (development)
+    if (origin.includes('localhost')) {
       return callback(null, true);
-    } else {
-      return callback(new Error('Not allowed by CORS'));
     }
+
+    // Allow ANY Vercel deployment (important)
+    if (origin.includes('.vercel.app')) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
   },
   credentials: true
 }));
