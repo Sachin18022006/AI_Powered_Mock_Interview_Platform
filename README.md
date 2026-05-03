@@ -103,7 +103,7 @@ cd AI_Powered_Mock_Interview_Platform
 ```
 cd server
 npm install
-npm run dev
+node server.js
 ```
 
 ---
