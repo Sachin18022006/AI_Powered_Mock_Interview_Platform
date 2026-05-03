@@ -1,7 +1,6 @@
 # 🚀 AI-Powered Mock Interview Platform
 
-An end-to-end full-stack web application that helps users practice technical interviews using AI.
-Users can upload resumes, answer questions (text/voice), and receive intelligent feedback.
+An end-to-end full-stack web application that simulates real-world technical interviews using AI. It generates personalized questions from user resumes, supports text and voice responses, and provides intelligent feedback on performance. The platform also tracks interview history, helping users improve through continuous practice.
 
 ---
 
@@ -92,7 +91,7 @@ VITE_API_URL=https://your-render-backend-url.onrender.com
 ### 1️⃣ Clone the repository
 
 ```
-git clone https://github.com/your-username/AI_Powered_Mock_Interview_Platform.git
+git clone https://github.com/Sachin18022006/AI_Powered_Mock_Interview_Platform.git
 cd AI_Powered_Mock_Interview_Platform
 ```
 
