@@ -9,22 +9,31 @@ import mongoose from 'mongoose';
 
 const connectDB = async () => {
   try {
-    // Get the connection string from environment variables
     const mongoURI = process.env.MONGODB_URI;
 
-    // Safety check: make sure the URI exists
     if (!mongoURI) {
-      throw new Error('MONGODB_URI is not defined in your .env file');
+      throw new Error('MONGODB_URI is not defined in your environment variables.');
     }
 
-    // Connect to MongoDB
-    // Mongoose 9.x handles connection options automatically
-    const conn = await mongoose.connect(mongoURI);
+    const trimmedURI = mongoURI.trim();
 
-    console.error(`MongoDB Connected: ${conn.connection.host}`);
+    if (!trimmedURI.startsWith('mongodb://') && !trimmedURI.startsWith('mongodb+srv://')) {
+      throw new Error(
+        `Invalid MONGODB_URI format. The connection string must start with "mongodb://" or "mongodb+srv://". You provided: "${trimmedURI.slice(0, 20)}..."`
+      );
+    }
+
+    const conn = await mongoose.connect(trimmedURI);
+
+    console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
-    console.error(`MongoDB Connection Error: ${error.message}`);
-    process.exit(1); // Stop the server if DB connection fails
+    console.error(`❌ MongoDB Connection Error: ${error.message}`);
+    if (error.message.includes('EBADNAME')) {
+      console.error(
+        '👉 Tip: EBADNAME means the MongoDB hostname or cluster domain in MONGODB_URI is invalid. Check Render Dashboard -> Environment Variables to make sure the full connection string is set (e.g. mongodb+srv://username:password@cluster.mongodb.net/dbname).'
+      );
+    }
+    process.exit(1);
   }
 };
 

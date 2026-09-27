@@ -15,8 +15,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Load environment variables from server directory or root
-dotenv.config({ path: path.join(__dirname, ".env") });
-dotenv.config();
+dotenv.config({ path: path.join(__dirname, ".env"), quiet: true });
+dotenv.config({ quiet: true });
 
 // Import our configured Express app
 import app from "./src/app.js";
