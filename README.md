@@ -4,13 +4,13 @@ PrepPilot simulates real-world technical interviews using AI. It generates perso
 questions from your resume, supports text and voice responses, and provides intelligent
 feedback to help you improve your performance — all in one place.
 
-> **Live demo:** https://ai-powered-mock-interview-platform-snowy.vercel.app
-> **API:** https://ai-powered-mock-interview-platform-6uf5.onrender.com
-> **GitHub:** https://github.com/Sachin18022006/AI_Powered_Mock_Interview_Platform
+> **Live demo:** https://ai-powered-mock-interview-platform-snowy.vercel.app  
+> **API:** https://ai-powered-mock-interview-platform-6uf5.onrender.com  
+> **GitHub:** https://github.com/Sachin18022006/AI_Powered_Mock_Interview_Platform  
 
 ---
 
-## 1. Project overview
+## 1. Project Overview
 
 PrepPilot takes a candidate's resume and target role, then generates a personalized
 set of interview questions tailored to their background. Candidates can answer via
@@ -19,182 +19,172 @@ to them (text-to-speech via Murf AI), attempt live coding challenges, and receiv
 detailed AI feedback with a performance score at the end. All sessions are saved to
 an interview history so candidates can track their progress over time.
 
+---
+
 ## 2. Features
 
-- JWT-based user authentication
-- Resume upload and parsing (PDF support)
-- AI-generated interview questions based on resume and target role
-- Voice-based answers using speech-to-text (AssemblyAI)
-- AI voice responses using text-to-speech (Murf AI)
-- Live coding support with AI evaluation
-- AI-powered feedback with performance scoring
-- Interview history with progress tracking
+- **JWT-based user authentication:** Secure signup, login, and protected routes.
+- **Resume upload and parsing:** Automatic text extraction from PDF resumes using PDF.js.
+- **AI-generated interview questions:** Tailored interview sessions generated via Google Gemini 2.5 Flash.
+- **Voice-based answers:** Audio recording with speech-to-text powered by AssemblyAI.
+- **AI voice synthesis:** Interactive voice questions and responses streamed via Murf AI.
+- **Live coding environment:** In-browser Monaco code editor with real-time AI evaluation.
+- **Comprehensive feedback:** Category scoring, strengths, weaknesses, and model answers.
+- **Interview history:** Persistent MongoDB session tracking to review past progress.
 
-## 3. Tech stack
+---
+
+## 3. Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Frontend | React (Vite) + React Router + Axios |
-| Backend | Node.js + Express.js |
-| Database | MongoDB Atlas (Mongoose ODM) |
-| Auth | JWT + bcryptjs |
-| AI — Question generation & feedback | Google Gemini API |
-| AI — Speech to text | AssemblyAI |
-| AI — Text to speech | Murf AI |
-| Deployment | Vercel (frontend) + Render (backend) |
+| **Frontend** | React 19 (Vite), React Router 7, Monaco Editor, React Hot Toast, React Icons |
+| **Backend** | Node.js (ESM), Express 5 |
+| **Database** | MongoDB Atlas (Mongoose 9 ODM) |
+| **Auth** | JWT + bcryptjs |
+| **AI — Questions & Feedback** | Google Gemini 2.5 Flash (`@google/genai`) |
+| **AI — Speech to text** | AssemblyAI (`assemblyai`) |
+| **AI — Text to speech** | Murf AI Speech Stream API |
+| **Deployment** | Vercel (Frontend) + Render (Backend / Fullstack) |
 
-## 4. Project structure
+---
+
+## 4. Project Structure
 
 ```
-PrepPilot/
-├── client/          # React frontend (Vite)
+AI_Powered_Mock_Interview_Platform/
+├── client/              # React frontend (Vite)
 │   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   └── utils/
+│   │   ├── components/  # Navbar, CodeEditor, VoiceRecorder, etc.
+│   │   ├── pages/       # HomePage, LoginPage, InterviewPage, HistoryPage, etc.
+│   │   └── services/    # api.js, authService.js, interviewService.js
+│   ├── package.json
+│   ├── vercel.json      # SPA routing for Vercel
+│   └── vite.config.js
+├── server/              # Express backend
+│   ├── src/
+│   │   ├── config/      # db.config.js, gemini.config.js
+│   │   ├── controllers/ # auth, interview, resume, history controllers
+│   │   ├── middleware/  # auth.middleware.js, error.middleware.js, upload
+│   │   ├── models/      # User, Interview, Resume Mongoose models
+│   │   ├── routes/      # Express API routers
+│   │   ├── services/    # gemini, assemblyai, murf services
+│   │   └── utils/       # jwt, prompts utils
+│   ├── server.js        # Backend entrypoint (0.0.0.0 binding)
 │   └── package.json
-├── server/          # Express backend
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   ├── utils/
-│   └── server.js
+├── package.json         # Root scripts for cloud builds & monorepo orchestration
+├── render.yaml          # Render Blueprint deployment definition
 └── README.md
 ```
 
-## 5. Local setup
+---
+
+## 5. Local Setup
 
 ### Prerequisites
 - Node.js 18+ and npm
 - MongoDB Atlas connection string
 - API keys for Gemini, AssemblyAI, and Murf AI
 
-### Backend
-```bash
-cd server
-cp .env.example .env
-# fill in all values (see Environment Variables section below)
-npm install
-node server.js     # starts on http://localhost:5000
+### Quick Start
+1. **Clone repository:**
+   ```bash
+   git clone https://github.com/Sachin18022006/AI_Powered_Mock_Interview_Platform.git
+   cd AI_Powered_Mock_Interview_Platform
+   ```
+
+2. **Configure environment:**
+   Create `server/.env` based on `.env.example`:
+   ```env
+   PORT=5000
+   NODE_ENV=development
+   MONGODB_URI=your_mongodb_atlas_connection_string
+   JWT_SECRET=your_jwt_secret_key
+   JWT_EXPIRES_IN=7d
+   GEMINI_API_KEY=your_gemini_api_key
+   ASSEMBLYAI_API_KEY=your_assemblyai_api_key
+   MURF_API_KEY=your_murf_api_key
+   CLIENT_URL=http://localhost:5173
+   ```
+
+3. **Install dependencies & build:**
+   ```bash
+   npm run build
+   ```
+
+4. **Run development servers:**
+   - **Backend:** `npm run dev:server` (http://localhost:5000)
+   - **Frontend:** `npm run dev:client` (http://localhost:5173)
+
+---
+
+## 6. Environment Variables Reference
+
+| Variable | Description | Where to set |
+|---|---|---|
+| `NODE_ENV` | Application environment (`production` or `development`) | Render & Local |
+| `PORT` | Listening port (default 5000 local, 10000 on Render) | Render & Local |
+| `MONGODB_URI` | MongoDB Atlas Connection String | Render & Local |
+| `JWT_SECRET` | Secret key for signing auth tokens | Render & Local |
+| `JWT_EXPIRES_IN` | Token expiration period (`7d`) | Render & Local |
+| `GEMINI_API_KEY` | Google Gemini API Key | Render & Local |
+| `MURF_API_KEY` | Murf AI Speech API Key | Render & Local |
+| `ASSEMBLYAI_API_KEY` | AssemblyAI Speech-to-Text Key | Render & Local |
+| `CLIENT_URL` | Frontend URL for CORS | Render & Local |
+| `VITE_API_URL` | Backend API URL for frontend client | Vercel |
+
+---
+
+## 7. Render Deployment Guide
+
+### Setting up on Render Dashboard:
+1. Navigate to your service `AI_Powered_Mock_Interview_Platform` on [dashboard.render.com](https://dashboard.render.com).
+2. Go to **Settings**:
+   - **Root Directory:** *(leave blank / empty)*
+   - **Build Command:** `npm run build`
+   - **Start Command:** `npm start`
+   - **Health Check Path:** `/health`
+3. Go to **Environment** tab and confirm all environment variables from Section 6 are present.
+4. Go to **Manual Deploy** -> **Clear build cache & deploy** (or **Deploy latest commit**).
+
+*(Alternatively, you can deploy using the included `render.yaml` Blueprint via **New + -> Blueprint**).*
+
+---
+
+## 8. High-Level Architecture
+
 ```
-
-### Frontend
-```bash
-cd client
-npm install
-npm run dev        # starts on http://localhost:5173
-```
-
-## 6. Environment variables
-
-### Backend (`server/.env`)
-```
-PORT=5000
-NODE_ENV=development
-MONGODB_URI=your_mongodb_atlas_connection_string
-
-JWT_SECRET=your_long_random_secret
-JWT_EXPIRES_IN=7d
-
-GEMINI_API_KEY=your_gemini_api_key
-ASSEMBLYAI_API_KEY=your_assemblyai_api_key
-MURF_API_KEY=your_murf_api_key
-```
-
-### Frontend (Vercel environment variables)
-```
-VITE_API_URL=https://your-backend-url.onrender.com
-```
-
-## 7. High-level architecture
-
-```
-React Client (Vite)
+React Client (Vite / Vercel)
   ├─ Auth state via JWT stored in localStorage
   ├─ Axios instance with Authorization header injection
-  └─ Pages: /login , /register , /dashboard , /interview , /history
+  └─ Pages: /login , /register , /interview , /history
         │
         │  REST (JSON), JWT in Authorization header
         ▼
-Express API (Node.js)
-  ├─ /api/auth       → register, login
+Express API (Node.js / Render)
+  ├─ /health         → Health check endpoint for zero-downtime monitoring
+  ├─ /api/auth       → register, login, profile
   ├─ /api/resume     → upload and parse PDF
-  ├─ /api/interview  → generate questions, submit answers, get feedback
+  ├─ /api/interview  → generate questions, submit answers, voice stream, code check
   ├─ /api/history    → saved sessions per user
-  └─ middleware/auth → verifies JWT, attaches req.user.id to every request
+  └─ middleware/auth → verifies JWT, attaches req.user to every request
         │
         ├──────────────────────────────────┐
         ▼                                  ▼
 MongoDB Atlas                      External AI APIs
-  ├─ Users                           ├─ Gemini (questions + feedback)
-  ├─ Resumes                         ├─ AssemblyAI (speech to text)
-  └─ InterviewSessions               └─ Murf AI (text to speech)
+  ├─ Users                           ├─ Google Gemini 2.5 Flash
+  ├─ Resumes                         ├─ AssemblyAI (Speech to Text)
+  └─ Interviews                      └─ Murf AI (Text to Speech Streaming)
 ```
 
-## 8. Authentication & authorization
+---
 
-- Passwords hashed with bcryptjs before storage — plaintext never saved.
-- Stateless JWT sessions: token signed with JWT_SECRET, sent as
-  `Authorization: Bearer <token>` on every request.
-- Auth middleware decodes the token and attaches `req.user.id` to the request.
-  Every database query for user-specific data (resumes, sessions, history) is
-  filtered by this ID, so one user can never access another's data.
+## 9. Key Design Decisions
 
-## 9. AI integration
-
-**Question generation (Gemini)**
-The parsed resume text and target role are sent to Gemini with a structured prompt
-that instructs it to return a JSON array of interview questions — a mix of
-behavioural, technical, and role-specific questions weighted toward the candidate's
-actual experience.
-
-**Feedback & scoring (Gemini)**
-After the session, each answer is sent back to Gemini alongside the original question.
-The model returns structured feedback (strengths, areas to improve, suggested answer)
-and a numeric score per question, which are aggregated into an overall session score.
-
-**Speech to text (AssemblyAI)**
-Voice answers are recorded in the browser, uploaded as audio blobs to the backend,
-and forwarded to AssemblyAI's transcription API. The returned transcript is treated
-as the candidate's answer, identical to a typed response.
-
-**Text to speech (Murf AI)**
-AI question text is sent to Murf AI and returned as an audio stream, played back in
-the browser so the interview feels more like a real conversation.
-
-## 10. Key design decisions & trade-offs
-
-- **Multiple AI providers** rather than one — Gemini for language tasks, AssemblyAI
-  for transcription accuracy, and Murf AI for natural-sounding voice. Each does one
-  thing well rather than one provider trying to do everything.
-- **Resume parsed server-side** rather than in the browser — keeps the AI prompt
-  construction logic in one place and avoids sending large files back and forth.
-- **JWT in localStorage** — simpler across separately-deployed frontend and backend
-  origins without cookie/SameSite issues. A production hardening step would move
-  this to httpOnly cookies with CSRF protection.
-- **Session history stored in MongoDB** — allows progress tracking across logins
-  without any client-side state persistence.
-
-## 11. Known limitations
-
-- Voice recording quality affects transcription accuracy — background noise can
-  reduce AssemblyAI output quality.
-- AI-generated questions are based on resume text quality; a sparse or poorly
-  formatted resume produces less targeted questions.
-- No real-time collaborative or panel interview simulation (single AI interviewer only).
-- No video recording or analysis of non-verbal communication.
-
-## 12. Deployment
-
-| Service | Platform |
-|---|---|
-| Frontend | Vercel |
-| Backend | Render |
-| Database | MongoDB Atlas |
-
-Environment variables are set directly in each platform's dashboard — never
-committed to the repository.
+- **Multiple AI Providers:** Google Gemini for complex reasoning and evaluation, AssemblyAI for transcription accuracy, Murf AI for realistic voice synthesis.
+- **Server-Side PDF Parsing:** Resumes are parsed securely on the server with PDF.js before creating prompt context.
+- **Resilient JSON Parsing:** Custom parser for LLM responses to ensure reliable JSON extraction even when LLM output includes markdown formatting or conversational commentary.
+- **Express 5 Compatibility:** Modernized routing, 0.0.0.0 container binding, and graceful static fallback for unified hosting.
 
 ---
 

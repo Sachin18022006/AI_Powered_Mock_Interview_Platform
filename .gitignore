@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+server/.env
+client/.env
+
+# Build outputs
+dist/
+client/dist/
+build/
+
+# Uploads & Temp
+uploads/
+server/uploads/
+*.log
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
